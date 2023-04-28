@@ -1,0 +1,92 @@
+# output file
+######## specify base_dir only if absolute path required. chain_file will use base_dir as prefix
+base_dir : ./
+chain_file    : chains/Y3_shear_LCDM.txt
+
+iterations : 10000
+nwalkers : 560
+
+
+#SELECT PROBES HERE!
+twoptnames  : ['xip', 'xim']
+#twoptnames  : ['xip', 'xim']
+
+#SPECIFY SCALE CUTS
+scale_cuts : [yaml/shear_0.5.yaml]
+#scale_cuts : [yaml/shear_0.5.yaml]
+
+# 2pt files
+cov_file    : cov_y3/cov_shear_final.txt
+data_file   : datav/Y3_shear_final.txt
+
+mask_file   : yaml/1x2pt_0.5.mask
+source_nz   : zdistris/nz_source_Y3_unblinded_final.txt
+lens_nz     : zdistris/nz_lens_Y3_unblinded_10_26_20.txt
+
+#run_mode    : Halofit
+run_mode    : CLASS
+
+######################################
+#NUISANCE PARAMETERS - GAUSSIAN PRIORS
+######################################
+# The mean parameter vectors must always be specified:
+# sigma vectors are optional - if not set the parameter is fixed to the
+# mean value above.
+shear_m_mean : [-0.0058, -0.0104, -0.0255, -0.0322]
+source_z_bias_mean: [0.0, 0.0, 0.0, 0.0]
+lens_z_bias_mean: [0.006, 0.001, 0.004, -0.002, -0.0007]
+shear_m_sigma: [0.0081,0.0131,0.0085,0.0118]
+source_z_bias_sigma: [0.018,0.013,0.006,0.013]
+lens_z_bias_sigma: [0.004,0.003,0.003,0.005,0.010]
+
+######################################
+#NUISANCE PARAMETERS -     FLAT PRIORS
+######################################
+#bias parameters sets same fiducial parameter/starting point for each tomography bin
+#bias_range : 0.
+bias_range : [0.8, 1.5, 3.0]
+#bias2_range : [-2.0,0.,2.0]
+b_mag_range : 0.
+
+#[parameter]_fiducial sets per-bin fiducial parameter/starting point
+# optional, overwrites fiducial of [parameter]_range
+bias_fiducial : [1.7,1.7,1.7,2.0,2.0]
+#bias2_fiducial : [0.23,0.23,0.23,0.5,0.5]
+b_mag_fiducial : [0.63,-3.04,-1.33,2.5,1.93]
+
+#IA parameters: TATT using power-law parameterization
+A_ia_range: [-5.,0.7,5.]
+eta_ia_range: [-5.,-1.7,5.]
+A2_ia_range: [-5.,-1.36,5.]
+eta_ia_tt_range: [-5.,-2.5,5.]
+#no redshift evolution for b_ta
+b_ta_noz_range : [0.,1.,2.]
+
+
+#IA parameters: TATT using z-bin parameterization
+#A_z_range: [-5.,0.,5.]
+#A2_z_range: [-15.,0.,15.]
+#b_ta_range : [0.,1.,2.]
+######################################
+#COSMOLOGY PARAMETERS -   FLAT PRIORS
+######################################
+#omega_nuh2_range : 0.0
+omega_nuh2_range : [0.0006,0.00083,0.00644]
+w0_range : -1.0
+#w0_range : [-2., -1.0, -0.333]
+omega_m_range : [0.1, 0.3, 0.9]
+A_s_range : [5.e-10,2.3e-9,5.e-9]
+h0_range : [0.55, 0.69, 0.91]
+n_s_range : [0.87, 0.97, 1.07]
+omega_b_range : [0.03, 0.048, 0.07]
+wa_range : 0.0
+MGSigma_range : 0.0
+MGmu_range : 0.0
+
+# nofz parameters
+ntomo_source : 4
+ntomo_lens   : 5
+
+# correlation function binning
+tbins       : 20
+tbounds     : [2.5,250.]
